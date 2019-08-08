@@ -111,14 +111,7 @@ function draw() {
             var current = openSet[winner]; //node with lowest found here
 
             if(openSet[winner] === end){ //if current is the end node we are done
-                path = [];
-                var temp = current;
-                path.push(temp);
-
-                while(temp.previous) {
-                    path.push(temp.previous);
-                    temp = temp.previous;
-                }
+                noLoop();
                 console.log("DONE!");
             }
 
@@ -173,7 +166,15 @@ function draw() {
  
         openSet[i].show(color(0, 255, 0))
     }
+    
+    path = [];
+    var temp = current;
+    path.push(temp);
 
+    while(temp.previous) {
+        path.push(temp.previous);
+        temp = temp.previous;
+    }
     for (let i = 0; i < path.length; i++) {
         path[i].show(color(0, 0, 255));
         
