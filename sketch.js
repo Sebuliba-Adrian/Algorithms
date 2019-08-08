@@ -1,3 +1,12 @@
+//custom function to remove item from array
+function removeFromArray(arr, elt) {
+	for (var i = arr.length - 1; i >= 0; i--) {
+		if(arr[i] === elt) {
+			arr.splice(i,1);
+		}
+	}
+}
+
 var cols = 5;
 var rows = 5;
 var WIDTH = 400;
@@ -26,7 +35,28 @@ function Spot(i,j) {
       fill(color);
       noStroke(0);
 	  rect(this.i*w, this.j*h, w-1, h-1);
+    }
+
+    this.addNeighbors = function(grid) {
+		var i = this.i;
+		var j = this.j;
+
+		if (i < cols -1 ) {
+        this.neighors.push(grid[i + 1][j]);
+        }
+        if (i > 0) {
+        this.neighors.push(grid[i - 1][j]);
+        }
+        if(j < rows -1){
+        this.neighors.push(grid[i][j + 1]);
+        }
+        
+        if( j > 0) {
+        this.neighors.push(grid[i][j - 1]);
+        }
 	}
+    
+
 }
 function setup() {
      createCanvas(400,400)
@@ -47,6 +77,14 @@ for (var i = 0; i < cols; i++) {
   }
 }
 
+for (var i = 0; i < cols; i++) {
+  
+    for(var j = 0; j < rows; j++) {
+  
+        grid[i][j].addNeighbors(grid);
+    }
+  }
+
     start = grid[0][0];
     end   = grid[cols-1][rows-1];
 
@@ -62,10 +100,17 @@ function draw() {
             if(openSet[i].f < openSet[winner].f) {
                 winner = i;
             } 
-            if(openSet[winner] === end){
 
+            var current = openSet[winner]; //node with lowest found here
+
+            if(openSet[winner] === end){ //if current is the end node we are done
                 console.log("DONE!");
             }
+
+            //Other wise is it is not
+            //openSet.remove(current); but no function in js to do this :(
+            removeFromArray(openSet, current);
+            closedSet.push(current);
         }
 	} else {
 		//no solution 
