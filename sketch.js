@@ -38,7 +38,7 @@ function Spot(i,j) {
     this.previous = undefined;
     this.wall = false;
 
-    if(random(1) < 0.1) {
+    if(random(1) < 0.3) {
         this.wall = true
     }
 
@@ -134,7 +134,7 @@ function draw() {
 
             for (var i =0; i<neighbors.length; i++) { //check every neighbor
                    var neighbor = neighbors[i];
-                   if(!closedSet.includes(neighbor)) {
+                   if(!closedSet.includes(neighbor) && !neighbor.wall) {
                        var tempG = current.g + 1;
                        //check in open set and ensure that the neighbor has a lesser value of g
                        if(openSet.includes(neighbor)) {
