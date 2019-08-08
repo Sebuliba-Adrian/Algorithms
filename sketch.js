@@ -7,8 +7,15 @@ function removeFromArray(arr, elt) {
 	}
 }
 
-var cols = 5;
-var rows = 5;
+function heuristic(Point, Goal) {
+
+	//return Math.sqrt(Math.pow(Point.x - Goal.x, 2) + Math.pow(Point.y - Goal.y, 2));
+	return Math.abs(Point.i - Goal.i) + Math.abs(Point.j - Goal.j);
+}
+
+
+var cols = 25;
+var rows = 25;
 var WIDTH = 400;
 var HEIGHT = 400;
 var grid = new Array(cols);
@@ -27,7 +34,7 @@ function Spot(i,j) {
 	this.f = 0;
 	this.g = 0;
 	this.h = 0;
-	this.neighors = [];
+	this.neighbors = [];
 
 	this.previous = undefined;
 
@@ -42,17 +49,17 @@ function Spot(i,j) {
 		var j = this.j;
 
 		if (i < cols -1 ) {
-        this.neighors.push(grid[i + 1][j]);
+        this.neighbors.push(grid[i + 1][j]);
         }
         if (i > 0) {
-        this.neighors.push(grid[i - 1][j]);
+        this.neighbors.push(grid[i - 1][j]);
         }
         if(j < rows -1){
-        this.neighors.push(grid[i][j + 1]);
+        this.neighbors.push(grid[i][j + 1]);
         }
         
         if( j > 0) {
-        this.neighors.push(grid[i][j - 1]);
+        this.neighbors.push(grid[i][j - 1]);
         }
 	}
     
@@ -100,6 +107,7 @@ function draw() {
             if(openSet[i].f < openSet[winner].f) {
                 winner = i;
             } 
+        } 
 
             var current = openSet[winner]; //node with lowest found here
 
@@ -114,10 +122,11 @@ function draw() {
             
             //After adding all neighbours to respective nodes, find those specific to current node
             var neighbors = current.neighbors; 
+            console.log(neighbors, "itsnssj");
 
             for (var i =0; i<neighbors.length; i++) { //check every neighbor
                    var neighbor = neighbors[i];
-                   if(!closedSet.includes(neighbor)){
+                   if(!closedSet.includes(neighbor)) {
                        var tempG = current.g + 1;
                        //check in open set and ensure that the neighbor has a lesser value of g
                        if(openSet.includes(neighbor)) {
@@ -128,12 +137,12 @@ function draw() {
                         neighbor.g = tempG;
                         openSet.push(neighbor);
                     }
-                   }
-                   //As you visit each neighbor increase g by 1
-                   neighbor.g = current.g + 1;
+
+                    neighbor.h = heuristic(neighbor, end);
+                    neighbor.f = neighbor.g + neighbor.h;
+                   }            
             }
 
-        }
 	} else {
 		//no solution 
     }
