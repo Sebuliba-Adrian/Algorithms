@@ -111,6 +111,14 @@ function draw() {
             //openSet.remove(current); but no function in js to do this :(
             removeFromArray(openSet, current);
             closedSet.push(current);
+            
+            //After adding all neighbours to respective nodes, find those specific to current node
+            var neighbors = current.neighbors; 
+
+            for (var i =0; i<neighbors.length; i++) { //check every neighbor
+                   var neighbor = neighbors[i];
+            }
+
         }
 	} else {
 		//no solution 
