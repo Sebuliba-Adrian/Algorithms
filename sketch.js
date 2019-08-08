@@ -35,10 +35,18 @@ function Spot(i,j) {
 	this.g = 0;
 	this.h = 0;
 	this.neighbors = [];
-	this.previous = undefined;
+    this.previous = undefined;
+    this.wall = false;
+
+    if(random(1) < 0.1) {
+        this.wall = true
+    }
 
 	this.show = function(color) {
       fill(color);
+      if(this.wall){
+          fill(0);
+      }
       noStroke(0);
 	  rect(this.i*w, this.j*h, w-1, h-1);
     }
