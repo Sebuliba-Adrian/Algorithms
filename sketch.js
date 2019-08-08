@@ -26,7 +26,7 @@ var closedSet = [];
 var start;
 var end;
 var w, h;
-
+var path = [];
 
 function Spot(i,j) {
 	this.i = i;
@@ -35,7 +35,6 @@ function Spot(i,j) {
 	this.g = 0;
 	this.h = 0;
 	this.neighbors = [];
-
 	this.previous = undefined;
 
 	this.show = function(color) {
@@ -112,6 +111,14 @@ function draw() {
             var current = openSet[winner]; //node with lowest found here
 
             if(openSet[winner] === end){ //if current is the end node we are done
+                path = [];
+                var temp = current;
+                path.push(temp);
+
+                while(temp.previous) {
+                    path.push(temp.previous);
+                    temp = temp.previous;
+                }
                 console.log("DONE!");
             }
 
@@ -140,6 +147,7 @@ function draw() {
 
                     neighbor.h = heuristic(neighbor, end);
                     neighbor.f = neighbor.g + neighbor.h;
+                    neighbor.previous = current;
                    }            
             }
 
@@ -166,5 +174,8 @@ function draw() {
         openSet[i].show(color(0, 255, 0))
     }
 
-
+    for (let i = 0; i < path.length; i++) {
+        path[i].show(color(0, 0, 255));
+        
+    }
 }
