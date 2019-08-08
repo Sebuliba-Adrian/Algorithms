@@ -14,8 +14,8 @@ function heuristic(Point, Goal) {
 }
 
 
-var cols = 25;
-var rows = 25;
+var cols = 50;
+var rows = 50;
 var WIDTH = 400;
 var HEIGHT = 400;
 var grid = new Array(cols);
@@ -68,6 +68,23 @@ function Spot(i,j) {
         if( j > 0) {
         this.neighbors.push(grid[i][j - 1]);
         }
+
+        if(i > 0 && j > 0){
+            this.neighbors.push(grid[i - 1][j - 1]); //left and up
+        }
+
+        if(i < cols-1 && j > 0){
+            this.neighbors.push(grid[i + 1][j - 1]); //to the right and up
+        }
+
+        if(i < 0 && j < rows-1){
+            this.neighbors.push(grid[i - 1][j + 1]); //to the left and down
+        }
+
+        if(i < cols-1 && j < rows-1){
+            this.neighbors.push(grid[i + 1][j + 1]); //to the left and down
+        }
+
 	}
     
 
