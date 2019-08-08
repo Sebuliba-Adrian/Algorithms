@@ -155,7 +155,11 @@ function draw() {
             }
 
 	} else {
-		//no solution 
+        //no solution 
+        console.log("no solution");
+        noLoop();
+        return;
+
     }
     
     background(0);
@@ -176,7 +180,6 @@ function draw() {
  
         openSet[i].show(color(0, 255, 0))
     }
-    
     path = [];
     var temp = current;
     path.push(temp);
