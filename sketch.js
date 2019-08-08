@@ -117,6 +117,8 @@ function draw() {
 
             for (var i =0; i<neighbors.length; i++) { //check every neighbor
                    var neighbor = neighbors[i];
+                   //As you visit each neighbor increase g by 1
+                   neighbor.g = current.g + 1;
             }
 
         }
