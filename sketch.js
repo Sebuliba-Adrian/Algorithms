@@ -56,7 +56,17 @@ for (var i = 0; i < cols; i++) {
 
 function draw() {
 	if(openSet.length > 0){
-		//we can keep going
+        //we can keep going
+        var winner = 0;
+        for (let i = 0; i < openSet.length; i++) {
+            if(openSet[i].f < openSet[winner].f) {
+                winner = i;
+            } 
+            if(openSet[winner] === end){
+
+                console.log("DONE!");
+            }
+        }
 	} else {
 		//no solution 
     }
