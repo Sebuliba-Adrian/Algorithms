@@ -117,6 +117,18 @@ function draw() {
 
             for (var i =0; i<neighbors.length; i++) { //check every neighbor
                    var neighbor = neighbors[i];
+                   if(!closedSet.includes(neighbor)){
+                       var tempG = current.g + 1;
+                       //check in open set and ensure that the neighbor has a lesser value of g
+                       if(openSet.includes(neighbor)) {
+                           if(tempG < neighbor.g) {
+                               neighbor.g = tempG;
+                           } 
+                       } else {
+                        neighbor.g = tempG;
+                        openSet.push(neighbor);
+                    }
+                   }
                    //As you visit each neighbor increase g by 1
                    neighbor.g = current.g + 1;
             }
